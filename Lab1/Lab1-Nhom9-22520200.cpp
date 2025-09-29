@@ -62,7 +62,16 @@ int isEqual(int x, int y)
 // 2.2
 int is16x(int x)
 {
-	return 0;
+	// Vì 16 = 2^4 nên ta chỉ cần kiểm tra 4 bit cuối của x có bằng 0 hay không
+	// Nếu 4 bit cuối của x = 0 thì x chia hết cho 16
+	// 15 = 0b0000...00001111, dùng để lấy 4 bit cuối của x
+	// Ta có thể dùng phép AND (&) để lấy 4 bit cuối của x;
+	int last_4_bits = 0;
+	last_4_bits += x & 15;
+	
+	// Dùng toán tử ! để đảo bit
+	// Nếu last_4_bits = 0 thì !last_4_bits = 1 (chia hết cho 16), ngược lại !last_4_bits = 0. Dùng & 1 để lấy bit cuối cùng
+	return !last_4_bits & 1;
 }
 
 // 2.3
@@ -74,7 +83,15 @@ int isPositive(int x)
 // 2.4
 int isGE2n(int x, int y)
 {
-	return 0;
+	int exp2_n = 1 << y; // Tính 2^n = 1 dịch trái y lần
+	// So sánh x và 2^n
+	x + ~(exp2_n) + 1; // Tính x - 2^n
+	// Lấy bit dấu của x - 2^n bằng cách dịch phải 31 bit và & 1
+	// Nếu bit dấu = 0 thì x >= 2^n, ngược lại bit dấu = 1 thì x < 2^n
+	int sign_bit = (x + ~(exp2_n) + 1) >> 31 & 1; 
+	
+	// Đảo bit dấu bằng NOT (~) và & 1 để trả về kết quả
+	return ~sign_bit & 1;;
 }
 
 int main()
@@ -146,6 +163,7 @@ int main()
 
 	//2.2
 	printf("\n2.2 is16x");
+
 	if (is16x(16) == 1 && is16x(23) == 0 && is16x(0) == 1)
 	{
 		printf("\tPass.");
