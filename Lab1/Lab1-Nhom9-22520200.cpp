@@ -20,11 +20,11 @@ void PrintBitsOfByte(unsigned int x)
 }
 
 // 1.1
-int bitAnd(int x, int y)
+int bitOr(int x, int y)
 {
 	//PrintBits(x);
 	//PrintBits(y);
-	return ~(~x | ~y);
+	return ~(~x & ~y);
 }
 
 // 1.2
@@ -34,19 +34,19 @@ int negative(int x)
 }
 
 // 1.3
-int getByte(int x, int n)
+int getHexcha(int x, int n)
 {
 	return 0;
 }
 
 // 1.4
-int getnbit(int x, int n)
+int flipByte(int x, int n)
 {
 	return 0;
 }
 
 // 1.5
-int mulpw2(int x, int n)
+int divpw2(int x, int n)
 {
 	return 0;
 }
@@ -54,13 +54,13 @@ int mulpw2(int x, int n)
 
 
 // 2.1
-int isSameSign(int x, int y)
+int isEqual(int x, int y)
 {
 	return 0;
 }
 
 // 2.2
-int is8x(int x)
+int is16x(int x)
 {
 	return 0;
 }
@@ -72,7 +72,7 @@ int isPositive(int x)
 }
 
 // 2.4
-int isLess2n(int x, int y)
+int isGE2n(int x, int y)
 {
 	return 0;
 }
@@ -81,8 +81,8 @@ int main()
 {
 	int score = 0;
 	printf("Your evaluation result:");
-	printf("\n1.1 bitAnd");
-	if (bitAnd(3, -9) == (3 & -9))
+	printf("\n1.1 bitOr");
+	if (bitOr(3, -9) == (3 | -9))
 	{
 		printf("\tPass.");
 		score += 1;
@@ -100,8 +100,8 @@ int main()
 		printf("\tFailed.");
 
 	//1.3
-	printf("\n1.3 getByte");
-	if (getByte(8, 0) == 8 && getByte(0x11223344, 1) == 0x33)
+	printf("\n1.3 getHexcha");
+	if (getHexcha(26, 0) == 0xa && getHexcha(0x11223344, 1) == 0x4)
 	{
 		printf("\tPass.");
 		score += 2;
@@ -109,8 +109,8 @@ int main()
 	else
 		printf("\tFailed.");
 
-	printf("\n1.4 getnbit");
-	if (getnbit(0, 0) == 0 && getnbit(31, 3) == 7 && getnbit(16, 4) == 0)
+	printf("\n1.4 flipByte");
+	if (flipByte(10, 0) == 245 && flipByte(0, 1) == 65280 && flipByte(0x5501, 1) == 0xaa01)
 	{
 		printf("\tPass.");
 		score += 3;
@@ -118,10 +118,10 @@ int main()
 	else
 		printf("\tFailed.");
 	//1.5
-	printf("\n1.5 mulpw2");
-	if (mulpw2(10, -1) == 5 && mulpw2(15, -2) == 3 && mulpw2(32, -4) == 2)
+	printf("\n1.5 divpw2");
+	if (divpw2(10, -1) == 20 && divpw2(15, -2) == 60 && divpw2(2, -4) == 32)
 	{
-		if (mulpw2(10, 1) == 20 && mulpw2(50, 2) == 200)
+		if (divpw2(10, 1) == 5 && divpw2(50, 2) == 12)
 		{
 			printf("\tAdvanced Pass.");
 			score += 4;
@@ -135,8 +135,8 @@ int main()
 	else
 		printf("\tFailed.");
 
-	printf("\n2.1 isSameSign");
-	if (isSameSign(4, 2) == 1 && isSameSign(13, -4) == 0 && isSameSign(0, 10) == 1)
+	printf("\n2.1 isEqual");
+	if (isEqual(4, 2) == 0 && isEqual(-4, -4) == 1 && isEqual(0, 10) == 0)
 	{
 		printf("\tPass.");
 		score += 2;
@@ -144,8 +144,9 @@ int main()
 	else
 		printf("\tFailed.");
 
-	printf("\n2.2 is8x");
-	if (is8x(16) == 1 && is8x(3) == 0 && is8x(0) == 1)
+	//2.2
+	printf("\n2.2 is16x");
+	if (is16x(16) == 1 && is16x(23) == 0 && is16x(0) == 1)
 	{
 		printf("\tPass.");
 		score += 2;
@@ -162,8 +163,10 @@ int main()
 	else
 		printf("\tFailed.");
 
-	printf("\n2.4 isLess2n");
-	if (isLess2n(12, 4) == 1 && isLess2n(8, 3) == 0 && isLess2n(15, 2) == 0)
+
+	//2.4
+	printf("\n2.4 isGE2n");
+	if (isGE2n(12, 4) == 0 && isGE2n(8, 3) == 1 && isGE2n(15, 2) == 1)
 	{
 		printf("\tPass.");
 		score += 3;
