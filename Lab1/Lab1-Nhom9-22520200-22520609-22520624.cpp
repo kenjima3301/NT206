@@ -22,8 +22,8 @@ void PrintBitsOfByte(unsigned int x)
 // 1.1
 int bitOr(int x, int y)
 {
-	//PrintBits(x);
-	//PrintBits(y);
+	// PrintBits(x);
+	// PrintBits(y);
 	return ~(~x & ~y);
 }
 
@@ -42,16 +42,15 @@ int getHexcha(int x, int n)
 // 1.4
 int flipByte(int x, int n)
 {
-	return 0;
+	int mask = 255 << (n << 3);
+	return (x & ~mask) | ((x ^ mask) & mask);
 }
 
 // 1.5
 int divpw2(int x, int n)
 {
-	return 0;
+	return x << (~n + 1);
 }
-
-
 
 // 2.1
 int isEqual(int x, int y)
@@ -99,7 +98,7 @@ int main()
 	else
 		printf("\tFailed.");
 
-	//1.3
+	// 1.3
 	printf("\n1.3 getHexcha");
 	if (getHexcha(26, 0) == 0xa && getHexcha(0x11223344, 1) == 0x4)
 	{
@@ -117,7 +116,7 @@ int main()
 	}
 	else
 		printf("\tFailed.");
-	//1.5
+	// 1.5
 	printf("\n1.5 divpw2");
 	if (divpw2(10, -1) == 20 && divpw2(15, -2) == 60 && divpw2(2, -4) == 32)
 	{
@@ -144,7 +143,7 @@ int main()
 	else
 		printf("\tFailed.");
 
-	//2.2
+	// 2.2
 	printf("\n2.2 is16x");
 	if (is16x(16) == 1 && is16x(23) == 0 && is16x(0) == 1)
 	{
@@ -163,8 +162,7 @@ int main()
 	else
 		printf("\tFailed.");
 
-
-	//2.4
+	// 2.4
 	printf("\n2.4 isGE2n");
 	if (isGE2n(12, 4) == 0 && isGE2n(8, 3) == 1 && isGE2n(15, 2) == 1)
 	{
