@@ -30,13 +30,17 @@ int bitOr(int x, int y)
 // 1.2
 int negative(int x)
 {
-	return 0;
+	return ~x + 1; // dùng bù 2
 }
 
 // 1.3
 int getHexcha(int x, int n)
 {
-	return 0;
+	int shiftAmount = n << 2; // Tính số bit cần dịch: n * 4, tương đương n << 2
+    // Dịch phải x để đưa byte thứ n về vị trí thấp nhất
+    int result = x >> shiftAmount; 
+    // Dùng mask 0xFF để xóa tất cả các bit trừ 8 bit cuối cùng
+    return result & 0xF;  
 }
 
 // 1.4
@@ -56,7 +60,7 @@ int divpw2(int x, int n)
 // 2.1
 int isEqual(int x, int y)
 {
-	return 0;
+	return !(~x & y); // 2 số bằng nhau khi đảo ngược bit của số a and với số b bằng 0
 }
 
 // 2.2
@@ -68,7 +72,19 @@ int is16x(int x)
 // 2.3
 int isPositive(int x)
 {
-	return 0;
+	// Điều kiện 1: x không phải là số âm (tức là x >= 0).
+    // (x >> 31) sẽ là 0 nếu x không âm, và -1 nếu x âm.
+    // !(x >> 31) sẽ là 1 nếu x không âm, và 0 nếu x âm.
+	int isNotNegative = !(x >> 31);
+
+    // Điều kiện 2: x không bằng 0.
+    //     !x → đảo ngược logic, trả về 1 nếu x = 0, ngược lại 0 nếu x ≠ 0.
+    // Thêm một ! nữa → !!x trả về 1 nếu x ≠ 0, và 0 nếu x = 0.
+    int isNotZero = !!x;
+
+    // x là số dương khi và chỉ khi nó "không âm" VÀ "không bằng 0".
+    // Ta dùng & bitwise vì các toán hạng đều là 0 hoặc 1.
+    return isNotNegative & isNotZero;
 }
 
 // 2.4
