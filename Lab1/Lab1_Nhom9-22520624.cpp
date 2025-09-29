@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <iostream>
+using namespace std;
 void PrintBits(unsigned int x)
 {
 	int i;
@@ -22,15 +23,15 @@ void PrintBitsOfByte(unsigned int x)
 // 1.1
 int bitOr(int x, int y)
 {
-	// PrintBits(x);
-	// PrintBits(y);
+	//PrintBits(x);
+	//PrintBits(y);
 	return ~(~x & ~y);
 }
 
 // 1.2
 int negative(int x)
 {
-	return ~x + 1; // dùng bù 2
+	 return ~x + 1; // dùng bù 2
 }
 
 // 1.3
@@ -46,15 +47,16 @@ int getHexcha(int x, int n)
 // 1.4
 int flipByte(int x, int n)
 {
-	int mask = 255 << (n << 3);
-	return (x & ~mask) | ((x ^ mask) & mask);
+	return 0;
 }
 
 // 1.5
 int divpw2(int x, int n)
 {
-	return x << (~n + 1);
+	return 0;
 }
+
+
 
 // 2.1
 int isEqual(int x, int y)
@@ -71,20 +73,20 @@ int is16x(int x)
 // 2.3
 int isPositive(int x)
 {
-	// Điều kiện 1: x không phải là số âm (tức là x >= 0).
+    // Điều kiện 1: x không phải là số âm (tức là x >= 0).
     // (x >> 31) sẽ là 0 nếu x không âm, và -1 nếu x âm.
     // !(x >> 31) sẽ là 1 nếu x không âm, và 0 nếu x âm.
 	int isNotNegative = !(x >> 31);
 
     // Điều kiện 2: x không bằng 0.
-    //     !x → đảo ngược logic, trả về 1 nếu x = 0, ngược lại 0 nếu x ≠ 0.
-    // Thêm một ! nữa → !!x trả về 1 nếu x ≠ 0, và 0 nếu x = 0.
+    // !!x sẽ là 1 nếu x khác 0, và 0 nếu x bằng 0.
     int isNotZero = !!x;
 
     // x là số dương khi và chỉ khi nó "không âm" VÀ "không bằng 0".
     // Ta dùng & bitwise vì các toán hạng đều là 0 hoặc 1.
     return isNotNegative & isNotZero;
 }
+
 
 // 2.4
 int isGE2n(int x, int y)
@@ -114,7 +116,7 @@ int main()
 	else
 		printf("\tFailed.");
 
-	// 1.3
+	//1.3
 	printf("\n1.3 getHexcha");
 	if (getHexcha(26, 0) == 0xa && getHexcha(0x11223344, 1) == 0x4)
 	{
@@ -132,7 +134,7 @@ int main()
 	}
 	else
 		printf("\tFailed.");
-	// 1.5
+	//1.5
 	printf("\n1.5 divpw2");
 	if (divpw2(10, -1) == 20 && divpw2(15, -2) == 60 && divpw2(2, -4) == 32)
 	{
@@ -159,7 +161,7 @@ int main()
 	else
 		printf("\tFailed.");
 
-	// 2.2
+	//2.2
 	printf("\n2.2 is16x");
 	if (is16x(16) == 1 && is16x(23) == 0 && is16x(0) == 1)
 	{
@@ -178,7 +180,8 @@ int main()
 	else
 		printf("\tFailed.");
 
-	// 2.4
+
+	//2.4
 	printf("\n2.4 isGE2n");
 	if (isGE2n(12, 4) == 0 && isGE2n(8, 3) == 1 && isGE2n(15, 2) == 1)
 	{
