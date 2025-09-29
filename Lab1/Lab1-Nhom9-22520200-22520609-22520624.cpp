@@ -59,7 +59,7 @@ int divpw2(int x, int n)
 // 2.1
 int isEqual(int x, int y)
 {
-	return !(~x & y); // 2 số bằng nhau khi đảo ngược bit của số a and với số b bằng 0
+	return !(x ^ y); // 2 số bằng nhau khi đảo ngược bit của số a and với số b bằng 0
 }
 
 // 2.2
@@ -74,16 +74,16 @@ int isPositive(int x)
 	// Điều kiện 1: x không phải là số âm (tức là x >= 0).
     // (x >> 31) sẽ là 0 nếu x không âm, và -1 nếu x âm.
     // !(x >> 31) sẽ là 1 nếu x không âm, và 0 nếu x âm.
-	int isNotNegative = !(x >> 31);
+	int NotNegative = !(x >> 31);
 
     // Điều kiện 2: x không bằng 0.
     //     !x → đảo ngược logic, trả về 1 nếu x = 0, ngược lại 0 nếu x ≠ 0.
     // Thêm một ! nữa → !!x trả về 1 nếu x ≠ 0, và 0 nếu x = 0.
-    int isNotZero = !!x;
+    int NotZero = !!x;
 
     // x là số dương khi và chỉ khi nó "không âm" VÀ "không bằng 0".
     // Ta dùng & bitwise vì các toán hạng đều là 0 hoặc 1.
-    return isNotNegative & isNotZero;
+    return NotNegative & NotZero;
 }
 
 // 2.4
