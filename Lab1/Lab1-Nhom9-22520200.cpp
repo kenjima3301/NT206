@@ -71,7 +71,7 @@ int is16x(int x)
 	
 	// Dùng toán tử ! để đảo bit
 	// Nếu last_4_bits = 0 thì !last_4_bits = 1 (chia hết cho 16), ngược lại !last_4_bits = 0. Dùng & 1 để lấy bit cuối cùng
-	return !last_4_bits & 1;
+	return (!last_4_bits) & 1;
 }
 
 // 2.3
@@ -83,15 +83,16 @@ int isPositive(int x)
 // 2.4
 int isGE2n(int x, int y)
 {
-	int exp2_n = 1 << y; // Tính 2^n = 1 dịch trái y lần
-	// So sánh x và 2^n
-	x + ~(exp2_n) + 1; // Tính x - 2^n
-	// Lấy bit dấu của x - 2^n bằng cách dịch phải 31 bit và & 1
-	// Nếu bit dấu = 0 thì x >= 2^n, ngược lại bit dấu = 1 thì x < 2^n
-	int sign_bit = (x + ~(exp2_n) + 1) >> 31 & 1; 
+	int exp2_n = 1 << y; // Tính 2^n bằng cách lấy 1 dịch trái y lần
+	int diff = x + ~(exp2_n) + 1; // // Tính x - 2^n bằng cách dùng công thức a - b = a + ~b + 1
+
+	// Nếu x >= 2^n thì bit dấu của (x - 2^n) = 0, ngược lại nếu x < 2^n thì bit dấu của (x - 2^n) = 1
+	// Lấy bit dấu của (x - 2^n) bằng cách dịch phải 31 bit và & 1
+	int sign_bit = (diff >> 31) & 1; 
 	
-	// Đảo bit dấu bằng NOT (~) và & 1 để trả về kết quả
-	return ~sign_bit & 1;;
+	// Ta cần trả về 1 khi x >= 2^n (sign_bit = 0), ngược lại trả về 0 khi x < 2^n (sign_bit = 1)
+	// Nên ta cần đảo bit dấu bằng NOT (~) và & 1
+	return ~sign_bit & 1;
 }
 
 int main()
