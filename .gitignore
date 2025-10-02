@@ -1,0 +1,14 @@
+# IDE settings
+.vscode/
+
+# Build files
+build/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+
+# C++
+*.exe
+*.o
