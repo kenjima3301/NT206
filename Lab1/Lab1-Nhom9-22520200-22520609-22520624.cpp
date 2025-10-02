@@ -65,7 +65,16 @@ int isEqual(int x, int y)
 // 2.2
 int is16x(int x)
 {
-	return 0;
+	// Vì 16 = 2^4 nên ta chỉ cần kiểm tra 4 bit cuối của x có bằng 0 hay không
+	// Nếu 4 bit cuối của x = 0 thì x chia hết cho 16
+	// 15 = 0b0000...00001111, dùng để lấy 4 bit cuối của x
+	// Ta có thể dùng phép AND (&) để lấy 4 bit cuối của x;
+	int last_4_bits = 0;
+	last_4_bits += x & 15;
+	
+	// Dùng toán tử ! kiểm tra.
+	// Nếu last_4_bits = 0 thì !last_4_bits = 1 (chia hết cho 16), ngược lại !last_4_bits = 0. Dùng & 1 để lấy bit cuối cùng
+	return (!last_4_bits) & 1;
 }
 
 // 2.3
@@ -89,7 +98,16 @@ int isPositive(int x)
 // 2.4
 int isGE2n(int x, int y)
 {
-	return 0;
+	int exp2_n = 1 << y; // Tính 2^n bằng cách lấy 1 dịch trái y lần
+	int diff = x + ~(exp2_n) + 1; // // Tính x - 2^n bằng cách dùng công thức a - b = a + ~b + 1
+
+	// Nếu x >= 2^n thì bit dấu của (x - 2^n) = 0, ngược lại nếu x < 2^n thì bit dấu của (x - 2^n) = 1
+	// Lấy bit dấu của (x - 2^n) bằng cách dịch phải 31 bit và & 1
+	int sign_bit = (diff >> 31) & 1; 
+	
+	// Ta cần trả về 1 khi x >= 2^n (sign_bit = 0), ngược lại trả về 0 khi x < 2^n (sign_bit = 1)
+	// Nên ta cần đảo bit dấu bằng NOT (~) và & 1
+	return ~sign_bit & 1;
 }
 
 int main()
